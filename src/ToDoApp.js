@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList';
 import NewToDoForm from './NewToDoForm.js';
-import './App.css'
+import uuid from 'uuid/dist/v4';
+import './App.css';
 
 export default class ToDoApp extends Component {
     static defaultProps = {
@@ -10,7 +11,7 @@ export default class ToDoApp extends Component {
     constructor(props){
         super(props)
         this.state = {
-
+            todos: ["buy grapes"]
         }
     }
     render() {
@@ -21,7 +22,10 @@ export default class ToDoApp extends Component {
                     <p>A simple React to do application</p>
                 </div>
                 <div>
-                    <ToDoList />
+                    {this.state.todos.map(todo => {
+                        let key = uuid();
+                        return <ToDoList key={key} id={key} listItem={todo} />
+                    })}
                 </div>
                 <div>
                     <NewToDoForm />
