@@ -4,12 +4,21 @@ import NewToDoForm from './NewToDoForm.js';
 import './App.css'
 
 export default class ToDoApp extends Component {
+    static defaultProps = {
+
+    }
+    constructor(props){
+        super(props)
+        this.state = {
+
+        }
+    }
     render() {
         return (
             <div>
                 <div>
-                    <h1>To do List!~</h1>
-                    <h5>A simple React to do application</h5>
+                    <h2>To do List!~</h2>
+                    <p>A simple React to do application</p>
                 </div>
                 <div>
                     <ToDoList />
