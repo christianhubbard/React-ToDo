@@ -45,7 +45,7 @@ export default class ToDoApp extends Component {
         });
         return (
             <div className="TodoList">
-                <h1>To do List!~ <span>A simple React to do application.</span></h1>
+                <h1>To do List!~ <span>A simple React Todo application.</span></h1>
                 <NewToDoForm key={"newtodoformkey"} addDataToHigherState={this.addDataToState}/>
                 <ul>
                     {todos}
