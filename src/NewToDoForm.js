@@ -15,7 +15,7 @@ export default class NewToDoForm extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        this.props.addDataToHigherState({...this.state, id: uuid(), completed:false})
+        this.props.addDataToHigherState({...this.state, id: uuid(), completed: false})
         this.setState({task:""})
     }
     render() {

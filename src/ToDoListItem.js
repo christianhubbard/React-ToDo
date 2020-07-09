@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css'
+import './Todo.css'
 
 
 export default class ToDoListItem extends Component {
@@ -13,6 +13,7 @@ export default class ToDoListItem extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
     }
     handleRemove(e){
         this.props.removeItemFromList(this.props.id)
@@ -28,20 +29,27 @@ export default class ToDoListItem extends Component {
         this.props.updateToDo(this.props.id, this.state.task)
         this.setState({isEditing:false})
     }
+    handleToggle(){
+        this.props.toggleToDo(this.props.id);
+    }
     render() {
   
         let result;
         if(this.state.isEditing){
             result = (
+                <div className="Todo">
                 <form onSubmit={this.handleUpdate}>
                     <input name="task" id={this.props.id} onChange={this.handleChange} value={this.state.task}></input>
                     <button>Save</button>
                 </form>
+                </div>
             )
         } else {
             result = (
-                <div className="App-todoItem">
-                    <li>{this.props.task}</li>
+                <div className='Todo'>
+                    <li className={this.props.completed ? 'Todo-task completed' : 'Todo-task'} onClick={this.handleToggle}>
+                        {this.props.task}
+                    </li>
                     <div>
                         <button onClick={this.handleEdit}>edit</button>
                         <button onClick={this.handleRemove}>X</button>

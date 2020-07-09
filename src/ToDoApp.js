@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ToDoListItem from './ToDoListItem';
 import NewToDoForm from './NewToDoForm.js';
-import uuid from 'uuid/dist/v4';
-import './App.css';
+import './TodoList.css';
 
 export default class ToDoApp extends Component {
     constructor(props){
@@ -11,6 +10,7 @@ export default class ToDoApp extends Component {
         this.addDataToState = this.addDataToState.bind(this);
         this.removeItemFromList = this.removeItemFromList.bind(this);
         this.updateToDo = this.updateToDo.bind(this);
+        this.toggleCompletion = this.toggleCompletion.bind(this);
     }
     addDataToState(data){
         this.setState({
@@ -21,10 +21,7 @@ export default class ToDoApp extends Component {
         this.setState(oldState => ({todos: oldState.todos.filter(todo => todo.id !== id)}))
     }
     updateToDo(id, updatedTask){
-        console.log("id", id)
-
         const updatedToDos = this.state.todos.map(todo => {
-            console.log("todo.id",todo.id)
             if(todo.id === id){
                 return { ...todo, task: updatedTask }
             }
@@ -32,22 +29,27 @@ export default class ToDoApp extends Component {
         });
         this.setState({ todos:updatedToDos })
     }
+    toggleCompletion(id){
+        const updatedToDos = this.state.todos.map(todo => {
+            if(todo.id === id){
+                return { ...todo, completed: !todo.completed}
+            }
+            return todo;
+        });
+        this.setState({ todos:updatedToDos })
+        
+    }
     render() {
         const todos = this.state.todos.map(todo => {
-            return <ToDoListItem key={todo.id} id={todo.id} task={todo.task} removeItemFromList={this.removeItemFromList}  updateToDo={this.updateToDo}/>
+            return <ToDoListItem key={todo.id} id={todo.id} task={todo.task} removeItemFromList={this.removeItemFromList} toggleToDo={this.toggleCompletion} completed={todo.completed} updateToDo={this.updateToDo}/>
         });
         return (
-            <div>
-                <div>
-                    <h2>To do List!~</h2>
-                    <p>A simple React to do application</p>
-                </div>
+            <div className="TodoList">
+                <h1>To do List!~ <span>A simple React to do application.</span></h1>
+                <NewToDoForm key={"newtodoformkey"} addDataToHigherState={this.addDataToState}/>
                 <ul>
                     {todos}
                 </ul>
-                <div>
-                    <NewToDoForm key={uuid()} addDataToHigherState={this.addDataToState}/>
-                </div>
             </div>
         )
     }
