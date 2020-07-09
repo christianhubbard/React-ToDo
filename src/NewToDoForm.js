@@ -14,13 +14,15 @@ export default class NewToDoForm extends Component {
             [e.target.name]: e.target.value
         })
     }
-    handleSubmit(){
-        
+    handleSubmit(e){
+        e.preventDefault();
+        this.props.addDataToHigherState(this.state.newToDo)
+        this.setState({newToDo:""})
     }
     render() {
         return (
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <label htmlFor="newToDo">New Todo</label>
                     <div>
                         <input id="newToDo" name="newToDo" value={this.state.newToDo} onChange={this.handleChange}></input>
