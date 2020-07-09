@@ -20,7 +20,6 @@ export default class ToDoApp extends Component {
         this.setState(oldState => ({todos: [...oldState.todos, data]}))
     }
     removeItemFromList(id){
-        console.log("this is the ID", id)
         this.setState(oldState => ({todos: oldState.todos.filter(element => element !== id)}))
     }
     render() {
@@ -33,7 +32,7 @@ export default class ToDoApp extends Component {
                 <div>
                     {this.state.todos.map(todo => {
                         let key = uuid();
-                        return <ToDoListItem key={key} id={key} listItem={todo} removeItemFromList={this.removeItemFromList}/>
+                        return <ToDoListItem key={key} id={key} listItem={todo} removeItemFromList={this.removeItemFromList}  addDataToHigherState={this.addDataToState}/>
                     })}
                 </div>
                 <div>

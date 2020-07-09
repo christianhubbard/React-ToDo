@@ -10,6 +10,8 @@ export default class ToDoListItem extends Component {
         }
         this.handleRemove = this.handleRemove.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleRemove(e){
         this.props.removeItemFromList(this.props.listItem)
@@ -17,12 +19,20 @@ export default class ToDoListItem extends Component {
     handleEdit(){
         this.setState({isEditing: !this.state.isEditing, newItem:""})
     }
+    handleChange(e){
+        this.setState({isEditing:true, [e.target.name]: e.target.value})
+    }
+    handleSubmit(e){
+        e.preventDefault()
+        this.props.removeItemFromList(this.props.listItem)
+        this.props.addDataToHigherState(this.state.newItem)
+    }
     render() {
         if(this.state.isEditing){
             return(
-                <form>
-                    <input value={this.state.newItem}></input>
-                    <button onClick={this.handleRemove}>Submit</button>
+                <form onSubmit={this.handleSubmit}>
+                    <input name="newItem" onChange={this.handleChange} value={this.state.newItem}></input>
+                    <button>Submit</button>
                 </form>
             )
         } else return (
