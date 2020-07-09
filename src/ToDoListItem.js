@@ -8,6 +8,10 @@ export default class ToDoListItem extends Component {
         this.state = {
             isEditing:false,
         }
+        this.handleRemove = this.handleRemove.bind(this);
+    }
+    handleRemove(e){
+        this.props.removeItemFromList(this.props.listItem)
     }
     render() {
         return (
@@ -15,7 +19,7 @@ export default class ToDoListItem extends Component {
                 <p>{this.props.listItem}</p>
                 <div>
                     <button>edit</button>
-                    <button>X</button>
+                    <button onClick={this.handleRemove}>X</button>
                 </div>
             </div>
         )
