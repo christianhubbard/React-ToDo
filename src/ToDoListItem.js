@@ -37,7 +37,7 @@ export default class ToDoListItem extends Component {
         let result;
         if(this.state.isEditing){
             result = (
-                <div className="Todo">
+                <div className="Todo-edit-form">
                 <form onSubmit={this.handleUpdate}>
                     <input name="task" id={this.props.id} onChange={this.handleChange} value={this.state.task}></input>
                     <button>Save</button>
