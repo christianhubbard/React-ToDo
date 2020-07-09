@@ -9,16 +9,27 @@ export default class ToDoListItem extends Component {
             isEditing:false,
         }
         this.handleRemove = this.handleRemove.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
     }
     handleRemove(e){
         this.props.removeItemFromList(this.props.listItem)
     }
+    handleEdit(){
+        this.setState({isEditing: !this.state.isEditing, newItem:""})
+    }
     render() {
-        return (
+        if(this.state.isEditing){
+            return(
+                <form>
+                    <input value={this.state.newItem}></input>
+                    <button onClick={this.handleRemove}>Submit</button>
+                </form>
+            )
+        } else return (
             <div className="App-todoItem">
                 <p>{this.props.listItem}</p>
                 <div>
-                    <button>edit</button>
+                    <button onClick={this.handleEdit}>edit</button>
                     <button onClick={this.handleRemove}>X</button>
                 </div>
             </div>
