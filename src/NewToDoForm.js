@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import uuid from 'uuid/dist/v4';
 
 export default class NewToDoForm extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            newToDo:""
-        }
+        this.state = {task: ""}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -16,20 +15,22 @@ export default class NewToDoForm extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        this.props.addDataToHigherState(this.state.newToDo)
-        this.setState({newToDo:""})
+        this.props.addDataToHigherState({...this.state, id: uuid(), completed:false})
+        this.setState({task:""})
     }
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="newToDo">New Todo</label>
-                    <div>
-                        <input id="newToDo" name="newToDo" value={this.state.newToDo} onChange={this.handleChange}></input>
-                        <button>ADD TODO</button>
-                    </div>
-                </form>
-            </div>
+            <form onSubmit={this.handleSubmit}>
+                <label htmlFor="task">New Todo</label>
+                <input 
+                id="task" 
+                name="task" 
+                placeholder="New ToDo" 
+                type="text" 
+                value={this.state.task} 
+                onChange={this.handleChange} />
+                <button>ADD TODO</button>
+            </form>
         )
     }
 }

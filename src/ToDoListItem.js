@@ -7,42 +7,49 @@ export default class ToDoListItem extends Component {
         super(props)
         this.state = {
             isEditing:false,
+            task: this.props.task,
         }
         this.handleRemove = this.handleRemove.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
     handleRemove(e){
-        this.props.removeItemFromList(this.props.listItem)
+        this.props.removeItemFromList(this.props.id)
     }
     handleEdit(){
-        this.setState({isEditing: !this.state.isEditing, newItem:""})
+        this.setState({isEditing: !this.state.isEditing})
     }
     handleChange(e){
         this.setState({isEditing:true, [e.target.name]: e.target.value})
     }
-    handleSubmit(e){
+    handleUpdate(e){
         e.preventDefault()
-        this.props.removeItemFromList(this.props.listItem)
-        this.props.addDataToHigherState(this.state.newItem)
+        this.props.updateToDo(this.props.id, this.state.task)
+        this.setState({isEditing:false})
     }
     render() {
+  
+        let result;
         if(this.state.isEditing){
-            return(
-                <form onSubmit={this.handleSubmit}>
-                    <input name="newItem" onChange={this.handleChange} value={this.state.newItem}></input>
-                    <button>Submit</button>
+            result = (
+                <form onSubmit={this.handleUpdate}>
+                    <input name="task" id={this.props.id} onChange={this.handleChange} value={this.state.task}></input>
+                    <button>Save</button>
                 </form>
             )
-        } else return (
-            <div className="App-todoItem">
-                <p>{this.props.listItem}</p>
-                <div>
-                    <button onClick={this.handleEdit}>edit</button>
-                    <button onClick={this.handleRemove}>X</button>
+        } else {
+            result = (
+                <div className="App-todoItem">
+                    <li>{this.props.task}</li>
+                    <div>
+                        <button onClick={this.handleEdit}>edit</button>
+                        <button onClick={this.handleRemove}>X</button>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+        
+        return (result);
     }
 }
