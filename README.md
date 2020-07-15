@@ -1,7 +1,7 @@
 # React Todo
 
 A simple to do list built in React for practice.
-
+This app is deployed [here](https://christianhubbard.github.io/React-ToDo/).
 
 ### What can it do?
 Done with an item but don't want to delete it? Cross it off your list.
